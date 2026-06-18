@@ -4,7 +4,7 @@ Jogo educacional de gerência de projetos desenvolvido como protótipo para a di
 
 ## Sobre
 
-O jogador assume o papel de gerente de um projeto de software e precisa tomar decisões frente a eventos de risco e oportunidades. O objetivo é manter as três métricas do projeto — **Prazo**, **Custo** e **Qualidade** — acima de zero até o fim das rodadas.
+O jogador assume o papel de gerente de um projeto de software e precisa tomar decisões frente a eventos de risco e oportunidades. O objetivo é manter as três métricas do projeto: **Prazo**, **Custo** e **Qualidade** acima de zero até o fim das rodadas.
 
 ## Como jogar
 
