@@ -402,11 +402,11 @@ function selectOption(chosenIndex) {
   }
 
   const streakWasActive = state.streak > 0;
-  if (quality === 'best')  state.streak++;
-  if (quality === 'worst') state.streak = 0;
+  if (quality === 'best') state.streak++;
+  else                    state.streak = 0;
 
-  if (quality === 'best')   flashStreak(state.streak);
-  else if (streakWasActive) flashStreakBreak();
+  if (quality === 'best')        flashStreak(state.streak);
+  else if (streakWasActive)      flashStreakBreak();
 
   const tipEl = document.getElementById('educational-tip');
   if (tipEl) {
