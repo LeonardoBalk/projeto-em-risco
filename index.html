@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projeto em Risco - Você consegue salvá-lo?</title>
+  <meta name="description" content="Tome as melhores decisões de gestão de projetos de software. Mantenha prazo, custo e qualidade acima de zero e salve seu projeto.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@twemoji/api@latest/dist/twemoji.min.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="app-container">
+
+    <div id="toast" class="toast"></div>
+
+    <section id="screen-menu" class="screen active">
+      <img src="logo.png" alt="Mascote Projeto em Risco" class="menu-mascot">
+      <h1 class="title-screen" style="margin-top: 16px;">Projeto em Risco</h1>
+      <p class="body-text" style="color: var(--purple-light); font-weight: 600; margin-top: 8px;">Você consegue salvá-lo?</p>
+      <p class="support-text menu-description">Tome as melhores decisões para manter o prazo, custo e qualidade acima de zero. Qualquer deslize pode ser fatal para o projeto.</p>
+      <div class="menu-actions">
+        <button id="btn-menu-start" class="btn-primary">Começar Projeto</button>
+        <button id="btn-menu-difficulty" class="btn-diff-chip">
+          <span id="diff-chip-dot" class="diff-chip-dot easy"></span>
+          <span id="diff-chip-label">Fácil</span>
+          <span class="diff-chip-change">Mudar dificuldade ›</span>
+        </button>
+        <button id="btn-menu-tutorial" class="btn-secondary">Como funciona</button>
+      </div>
+    </section>
+
+    <section id="screen-difficulty" class="screen">
+      <div class="tutorial-header">
+        <button id="btn-diff-back" class="btn-back">← Voltar</button>
+        <span class="tutorial-header-title">Dificuldade</span>
+      </div>
+      <div class="diff-options">
+        <button class="diff-option easy" data-diff="easy">
+          <div class="diff-option-radio easy"></div>
+          <div class="diff-option-body">
+            <span class="diff-option-name">Fácil</span>
+            <span class="diff-option-desc">Métricas em 100. Penalidades normais. Boa para aprender o jogo.</span>
+          </div>
+        </button>
+        <button class="diff-option medium" data-diff="medium">
+          <div class="diff-option-radio medium"></div>
+          <div class="diff-option-body">
+            <span class="diff-option-name">Médio</span>
+            <span class="diff-option-desc">Métricas em 80. Penalidades 40% maiores. Menos margem para erro.</span>
+          </div>
+        </button>
+        <button class="diff-option hard" data-diff="hard">
+          <div class="diff-option-radio hard"></div>
+          <div class="diff-option-body">
+            <span class="diff-option-name">Difícil</span>
+            <span class="diff-option-desc">Métricas em 65. Penalidades 80% maiores. 12 cartas.</span>
+          </div>
+        </button>
+      </div>
+    </section>
+
+    <section id="screen-tutorial" class="screen">
+      <div class="tutorial-header">
+        <button id="btn-tutorial-back" class="btn-back">← Voltar</button>
+        <span class="tutorial-header-title">Como funciona</span>
+      </div>
+      <div class="tutorial-cards-container">
+        <div class="tutorial-card purple">
+          <div class="tutorial-card-icon">📋</div>
+          <div class="tutorial-card-body">
+            <h3 class="tutorial-card-title">Você é o gerente</h3>
+            <p class="tutorial-card-description">Um projeto de software depende das suas decisões. Prazo, custo e qualidade estão nas suas mãos.</p>
+          </div>
+        </div>
+        <div class="tutorial-card amber">
+          <div class="tutorial-card-icon">🃏</div>
+          <div class="tutorial-card-body">
+            <h3 class="tutorial-card-title">Cartas de risco surgem</h3>
+            <p class="tutorial-card-description">A cada rodada um evento inesperado acontece. Pode ser uma demissão, um bug crítico ou um cliente difícil.</p>
+          </div>
+        </div>
+        <div class="tutorial-card blue">
+          <div class="tutorial-card-icon">⚡</div>
+          <div class="tutorial-card-body">
+            <h3 class="tutorial-card-title">Escolha sua resposta</h3>
+            <p class="tutorial-card-description">Cada opção tem consequências diferentes nas 3 métricas. Não existe resposta perfeita, só escolhas melhores ou piores.</p>
+          </div>
+        </div>
+        <div class="tutorial-card red">
+          <div class="tutorial-card-icon">💀</div>
+          <div class="tutorial-card-body">
+            <h3 class="tutorial-card-title">Não deixe zerar</h3>
+            <p class="tutorial-card-description">Se prazo, custo ou qualidade chegarem a zero, o projeto é cancelado.</p>
+          </div>
+        </div>
+      </div>
+      <button id="btn-tutorial-start" class="btn-primary" style="margin-top: 24px;">Entendido, vamos jogar!</button>
+    </section>
+
+    <section id="screen-game" class="screen">
+      <header class="game-header">
+        <button id="btn-quit" class="btn-close" aria-label="Abandonar jogo">✕</button>
+        <div class="metrics-grid">
+          <div id="game-metric-prazo" class="metric-item">
+            <div class="metric-meta"><span class="label-text">Prazo</span><span class="metric-value">100</span></div>
+            <div class="progress-bar-track"><div class="progress-bar-fill fill-high" style="width:100%"></div></div>
+          </div>
+          <div id="game-metric-custo" class="metric-item">
+            <div class="metric-meta"><span class="label-text">Custo</span><span class="metric-value">100</span></div>
+            <div class="progress-bar-track"><div class="progress-bar-fill fill-high" style="width:100%"></div></div>
+          </div>
+          <div id="game-metric-qualidade" class="metric-item">
+            <div class="metric-meta"><span class="label-text">Qualidade</span><span class="metric-value">100</span></div>
+            <div class="progress-bar-track"><div class="progress-bar-fill fill-high" style="width:100%"></div></div>
+          </div>
+        </div>
+      </header>
+      <main class="game-content">
+        <div id="streak-pill" class="streak-pill hidden">
+          <span id="streak-count" class="streak-count">🔥 ×1</span>
+          <span id="streak-label" class="streak-label">em sequência!</span>
+        </div>
+        <div class="event-card">
+          <div class="event-card-top">
+            <span id="event-tag" class="badge-impact">ALTO IMPACTO</span>
+            <span id="event-counter" class="support-text">Evento 1/10</span>
+          </div>
+          <h2 id="event-title" class="title-card">Carregando evento...</h2>
+          <p class="support-text event-subtitle">Como você vai reagir para salvar o projeto?</p>
+        </div>
+        <div class="options-list">
+          <button class="option-btn" data-index="0">
+            <span class="option-badge">A</span>
+            <div class="option-text-container"><span class="option-text">Opção A</span><span class="option-effects"></span></div>
+          </button>
+          <button class="option-btn" data-index="1">
+            <span class="option-badge">B</span>
+            <div class="option-text-container"><span class="option-text">Opção B</span><span class="option-effects"></span></div>
+          </button>
+          <button class="option-btn" data-index="2">
+            <span class="option-badge">C</span>
+            <div class="option-text-container"><span class="option-text">Opção C</span><span class="option-effects"></span></div>
+          </button>
+        </div>
+        <div id="educational-tip" class="educational-tip">
+          <span class="tip-label">Dica de Gestão</span>
+          <p id="tip-text" class="tip-content"></p>
+        </div>
+        <button id="btn-continue" class="btn-primary continue-btn hidden">Continuar</button>
+      </main>
+      <div id="quit-modal" class="modal-overlay">
+        <div class="modal-card">
+          <h3 class="modal-title">Abandonar projeto?</h3>
+          <p class="modal-subtitle">Todo o progresso será perdido.</p>
+          <div class="modal-actions">
+            <button id="btn-modal-cancel" class="btn-primary">Continuar</button>
+            <button id="btn-modal-confirm" class="btn-secondary">Sair</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="screen-transition" class="screen">
+      <div class="transition-content">
+        <div id="transition-round-indicator" class="label-text" style="text-align:center;margin-bottom:8px">Rodada 1 de 10</div>
+        <h3 class="transition-title">Impacto desta rodada</h3>
+        <div id="impact-lines-container" class="impact-lines-list"></div>
+        <div id="transition-metrics-container" class="metrics-grid" style="margin-top:24px">
+          <div id="transition-metric-prazo" class="metric-item">
+            <div class="metric-meta"><span class="label-text">Prazo</span><span class="metric-value">100</span></div>
+            <div class="progress-bar-track"><div class="progress-bar-fill fill-high" style="width:100%"></div></div>
+          </div>
+          <div id="transition-metric-custo" class="metric-item">
+            <div class="metric-meta"><span class="label-text">Custo</span><span class="metric-value">100</span></div>
+            <div class="progress-bar-track"><div class="progress-bar-fill fill-high" style="width:100%"></div></div>
+          </div>
+          <div id="transition-metric-qualidade" class="metric-item">
+            <div class="metric-meta"><span class="label-text">Qualidade</span><span class="metric-value">100</span></div>
+            <div class="progress-bar-track"><div class="progress-bar-fill fill-high" style="width:100%"></div></div>
+          </div>
+        </div>
+      </div>
+      <button id="btn-next-card" class="btn-primary" style="margin-top:32px">Próxima carta →</button>
+    </section>
+
+    <section id="screen-gameover" class="screen">
+      <div class="gameover-emoji">💀</div>
+      <h2 class="gameover-title">Projeto Cancelado</h2>
+      <p id="gameover-subtitle" class="body-text gameover-subtitle">O projeto falhou devido à gestão de riscos.</p>
+      <div class="gameover-card">
+        <span class="label-text">Última decisão</span>
+        <h4 id="gameover-event-title" class="gameover-event-title">Evento do colapso</h4>
+        <p id="gameover-chosen-option" class="gameover-chosen-option">Opção selecionada que levou ao fim</p>
+      </div>
+      <div class="final-metrics-container"></div>
+      <div class="gameover-actions">
+        <button id="btn-gameover-retry" class="btn-primary">Tentar Novamente</button>
+        <button id="btn-gameover-menu" class="btn-secondary">Voltar ao menu</button>
+      </div>
+    </section>
+
+    <section id="screen-results" class="screen">
+      <div id="results-grade-emoji" class="results-emoji">🥇</div>
+      <h2 id="results-grade-name" class="grade-name">Ouro</h2>
+      <p id="results-feedback" class="body-text results-feedback">Feedback de conclusão do projeto.</p>
+      <div class="final-metrics-container" style="margin-top:24px"></div>
+      <div class="decisions-card">
+        <div class="decisions-row">
+          <div class="decision-stat best"><span id="stat-best-count" class="stat-num">✓ 0</span><span class="stat-label">ótimas</span></div>
+          <div class="decision-stat mid"><span id="stat-mid-count" class="stat-num">~ 0</span><span class="stat-label">ok</span></div>
+          <div class="decision-stat worst"><span id="stat-worst-count" class="stat-num">✗ 0</span><span class="stat-label">ruins</span></div>
+        </div>
+        <div id="results-opp-row" style="margin-top:16px;border-top:1px solid var(--bg-border);padding-top:12px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:14px;font-weight:700;color:#06B6D4">
+          <span>💡 <span id="stat-opp-count">0</span> oportunidades aproveitadas</span>
+        </div>
+      </div>
+      <div id="results-worst-card" class="worst-card">
+        <span class="label-text">Carta com maior impacto negativo</span>
+        <h4 id="results-worst-title" class="worst-title">Título do pior evento</h4>
+        <p id="results-worst-impact" class="worst-impact">−0 pontos totais</p>
+      </div>
+      <div class="results-actions">
+        <button id="btn-results-retry" class="btn-primary">Jogar Novamente</button>
+        <button id="btn-results-menu" class="btn-secondary">Voltar ao menu</button>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
