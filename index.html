@@ -18,6 +18,7 @@
     <div id="toast" class="toast"></div>
 
     <section id="screen-menu" class="screen active">
+      <button id="btn-mute" class="btn-mute" aria-label="Mute/Unmute">🔊</button>
       <img src="logo.png" alt="Mascote Projeto em Risco" class="menu-mascot">
       <h1 class="title-screen" style="margin-top: 16px;">Projeto em Risco</h1>
       <p class="body-text" style="color: var(--purple-light); font-weight: 600; margin-top: 8px;">Você consegue salvá-lo?</p>
@@ -50,14 +51,14 @@
           <div class="diff-option-radio medium"></div>
           <div class="diff-option-body">
             <span class="diff-option-name">Médio</span>
-            <span class="diff-option-desc">Métricas em 80. Penalidades 40% maiores. Menos margem para erro.</span>
+            <span class="diff-option-desc">Métricas em 80. Penalidades 40% maiores. Até 2 oportunidades.</span>
           </div>
         </button>
         <button class="diff-option hard" data-diff="hard">
           <div class="diff-option-radio hard"></div>
           <div class="diff-option-body">
             <span class="diff-option-name">Difícil</span>
-            <span class="diff-option-desc">Métricas em 65. Penalidades 80% maiores. 12 cartas.</span>
+            <span class="diff-option-desc">Métricas em 65. Penalidades 80% maiores. 12 cartas. Apenas 1 oportunidade.</span>
           </div>
         </button>
       </div>
@@ -231,6 +232,7 @@
 
   </div>
 
+  <script src="sound.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

@@ -6,9 +6,9 @@ const CONFIG = {
 };
 
 const DIFFICULTIES = {
-  easy:   { label: 'Fácil',   startMetric: 100, penaltyMult: 1.0, cardCount: 10, goldThreshold: 70, silverThreshold: 40 },
-  medium: { label: 'Médio',   startMetric: 80,  penaltyMult: 1.4, cardCount: 10, goldThreshold: 60, silverThreshold: 35 },
-  hard:   { label: 'Difícil', startMetric: 65,  penaltyMult: 1.6, cardCount: 12, goldThreshold: 50, silverThreshold: 30 },
+  easy:   { label: 'Fácil',   startMetric: 100, penaltyMult: 1.0, cardCount: 10, goldThreshold: 70, silverThreshold: 40, maxOpps: 3 },
+  medium: { label: 'Médio',   startMetric: 80,  penaltyMult: 1.4, cardCount: 10, goldThreshold: 60, silverThreshold: 35, maxOpps: 2 },
+  hard:   { label: 'Difícil', startMetric: 65,  penaltyMult: 1.6, cardCount: 12, goldThreshold: 50, silverThreshold: 30, maxOpps: 1 },
 };
 
 const cards = [
@@ -189,7 +189,7 @@ function updateDiffScreen() {
 function buildDeck(difficulty) {
   const diff = DIFFICULTIES[difficulty];
   const risks = shuffle(cards.filter(c => c.type !== 'opportunity'));
-  const opps  = shuffle(cards.filter(c => c.type === 'opportunity'));
+  const opps  = shuffle(cards.filter(c => c.type === 'opportunity')).slice(0, diff.maxOpps);
   const rest  = shuffle([...risks.slice(2), ...opps]);
   return [...risks.slice(0, 2), ...rest].slice(0, diff.cardCount);
 }
@@ -341,6 +341,7 @@ function flashStreak(count) {
   pill.style.backgroundColor = '';
   pill.classList.remove('hidden');
   parseEmojis(pill);
+  sounds.streak();
   setTimeout(() => {
     pill.classList.add('leaving');
     setTimeout(() => { pill.classList.add('hidden'); pill.classList.remove('leaving'); }, 350);
@@ -360,6 +361,7 @@ function flashStreakBreak() {
   pill.style.borderBottom = '4px solid var(--red-glow)';
   pill.classList.remove('hidden');
   parseEmojis(pill);
+  sounds.streakBreak();
   setTimeout(() => {
     pill.classList.add('leaving');
     setTimeout(() => { pill.classList.add('hidden'); pill.classList.remove('leaving'); }, 350);
@@ -388,6 +390,16 @@ function selectOption(chosenIndex) {
   let quality = 'mid';
   if (chosenIndex === card.best)  quality = 'best';
   if (chosenIndex === card.worst) quality = 'worst';
+
+  if (card.type === 'opportunity') {
+    if (quality === 'best')        sounds.oppBest();
+    else if (quality === 'mid')    sounds.oppMid();
+    else                           sounds.oppNone();
+  } else {
+    if (quality === 'best')        sounds.best();
+    else if (quality === 'mid')    sounds.mid();
+    else                           sounds.worst();
+  }
 
   const streakWasActive = state.streak > 0;
   if (quality === 'best')  state.streak++;
@@ -477,6 +489,7 @@ function handleNextCard() {
 }
 
 function showGameOver() {
+  sounds.gameOver();
   const { prazo, custo } = state.metrics;
   document.getElementById('gameover-subtitle').textContent = prazo <= 0
     ? 'O prazo chegou a zero. O cliente abandonou o projeto.'
@@ -513,6 +526,10 @@ function showResults() {
     emoji = '🥈'; grade = 'Prata'; gradeClass = 'grade-prata';
     feedback = 'Boa gerência, mas algumas decisões comprometeram o projeto. Há espaço para melhorar.';
   }
+
+  if (gradeClass === 'grade-ouro')        sounds.gold();
+  else if (gradeClass === 'grade-prata')  sounds.silver();
+  else                                    sounds.bronze();
 
   const gradeEmojiEl = document.getElementById('results-grade-emoji');
   gradeEmojiEl.textContent = emoji;
