@@ -16,11 +16,11 @@ O jogador assume o papel de gerente de um projeto de software e precisa tomar de
 
 ## Dificuldades
 
-| Dificuldade | Métricas iniciais | Multiplicador de penalidade | Cartas |
-|-------------|-------------------|-----------------------------|--------|
-| Fácil       | 100               | 1.0×                        | 10     |
-| Médio       | 80                | 1.4×                        | 10     |
-| Difícil     | 65                | 1.6×                        | 12     |
+| Dificuldade | Métricas iniciais | Multiplicador de penalidade | Cartas | Ouro (mín.) |
+|-------------|-------------------|-----------------------------|--------|-------------|
+| Fácil       | 100               | 1.0×                        | 10     | 75          |
+| Médio       | 85                | 1.15×                       | 10     | 58          |
+| Difícil     | 80                | 1.2×                        | 12     | 48          |
 
 ## Estrutura
 
