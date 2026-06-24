@@ -660,8 +660,10 @@ function selectOption(chosenIndex) {
 
   const chosenOption = card.options[chosenIndex];
 
+  const adjustedEffects = {};
   for (const [metric, value] of Object.entries(chosenOption.effects)) {
     const adjusted = value < 0 ? Math.round(value * diff.penaltyMult) : value;
+    adjustedEffects[metric] = adjusted;
     state.metrics[metric] = Math.max(0, Math.min(CONFIG.maxMetric, state.metrics[metric] + adjusted));
   }
 
@@ -704,7 +706,7 @@ function selectOption(chosenIndex) {
     btnContinue.classList.remove('hidden');
     btnContinue.classList.add('show');
     btnContinue.onclick = () => {
-      prepareTransitionScreen(chosenOption.effects);
+      prepareTransitionScreen(adjustedEffects);
       showScreen('screen-transition');
     };
   }, CONFIG.toastHideDelay);
